@@ -30,7 +30,7 @@ defmodule WebcrawlerTest do
 
   test "finds links to crawl" do
     example_index = fixture("example.com/index.html")
-    iana_uri = "http://www.iana.org/domains/example"
+    iana_uri = URI.parse("http://www.iana.org/domains/example")
     assert %Webcrawler.Result{links: [^iana_uri]} = Webcrawler.get("http://example.com/index.html")
   end
 
