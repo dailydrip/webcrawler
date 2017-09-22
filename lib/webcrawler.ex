@@ -17,6 +17,13 @@ defmodule Webcrawler do
     %Result{body: response.body}
   end
 
+  def get_and_transform(uri_string, transformations) do
+    response = get(uri_string)
+    for {key, transformation} <- transformations, into: %{} do
+      {key, transformation.(response)}
+    end
+  end
+
   defp client do
     Tesla.build_client([
       {Tesla.Middleware.FollowRedirects, [max_redirects: 3]}

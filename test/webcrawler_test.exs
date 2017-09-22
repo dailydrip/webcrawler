@@ -16,6 +16,18 @@ defmodule WebcrawlerTest do
     assert body == example_index
   end
 
+  test "runs an transformation on a request" do
+    example_index = fixture("example.com/index.html")
+    index_length = String.length(example_index)
+    transformations =
+      %{
+        length: fn(r) ->
+          r.body |> String.length
+        end
+      }
+    assert %{length: index_length} == Webcrawler.get_and_transform("http://example.com/index.html", transformations)
+  end
+
   def fixture(path) do
     File.read!("./test/fixtures/requests/#{path}")
   end
