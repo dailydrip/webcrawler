@@ -28,6 +28,28 @@ defmodule WebcrawlerTest do
     assert %{length: index_length} == Webcrawler.get_and_transform("http://example.com/index.html", transformations)
   end
 
+  test "finds links to crawl" do
+    example_index = fixture("example.com/index.html")
+    iana_uri = "http://www.iana.org/domains/example"
+    assert %Webcrawler.Result{links: [^iana_uri]} = Webcrawler.get("http://example.com/index.html")
+  end
+
+  test "transforms a list of URLs" do
+    urls = [
+      "http://www.example.com/index.html"
+    ]
+    example_index = fixture("example.com/index.html")
+    index_length = String.length(example_index)
+    transformations =
+      %{
+        length: fn(r) ->
+          r.body |> String.length
+        end
+      }
+
+    assert [{Enum.at(urls, 0), %{length: index_length}}] == Webcrawler.get_and_transform(urls, transformations)
+  end
+
   def fixture(path) do
     File.read!("./test/fixtures/requests/#{path}")
   end

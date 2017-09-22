@@ -21,6 +21,7 @@ defmodule Webcrawler.Mixfile do
   defp deps do
     [
       {:tesla, "~> 0.8.0"},
+      {:floki, "~> 0.18.0"},
     ]
   end
 end
