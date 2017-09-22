@@ -1,21 +1,7 @@
 # Webcrawler
 
-**TODO: Add description**
+Inspired by
+<https://benbernardblog.com/the-tale-of-creating-a-distributed-web-crawler/>, I
+wanted to build a web crawler in Elixir using OTP.
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `webcrawler` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:webcrawler, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/webcrawler](https://hexdocs.pm/webcrawler).
-
+Thomas DePierre helped! :)

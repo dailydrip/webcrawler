@@ -1,9 +1,20 @@
+defmodule Webcrawler.Result do
+  defstruct body: ""
+end
+
 defmodule Webcrawler do
   require Tesla
+  alias Webcrawler.Result
 
   def get_robots_for(uri_string) do
     response = Tesla.get(client, robots_txt(uri_string))
     response.body
+  end
+
+  def get(uri_string) do
+    # TKTK Honor robots
+    response = Tesla.get(client, uri_string)
+    %Result{body: response.body}
   end
 
   defp client do
