@@ -1,7 +1,15 @@
 defmodule Webcrawler do
   require Tesla
-  alias Webcrawler.Result
+  alias Webcrawler.{
+    Result,
+    Queue
+  }
   @url_regex ~r(https?://[^ $\n]*)
+
+  # Transformations come in at configuration time I suppose...
+  def crawl(url) do
+    Queue.put(url)
+  end
 
   def get_robots_for(uri_string) do
     response = Tesla.get(client, robots_txt(uri_string))

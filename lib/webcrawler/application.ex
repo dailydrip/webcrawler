@@ -10,6 +10,8 @@ defmodule Webcrawler.Application do
     children = [
       # Starts a worker by calling: Webcrawler.Worker.start_link(arg)
       # {Webcrawler.Worker, arg},
+      Webcrawler.Results,
+      Webcrawler.Queue
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

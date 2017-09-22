@@ -22,6 +22,7 @@ defmodule Webcrawler.Mixfile do
     [
       {:tesla, "~> 0.8.0"},
       {:floki, "~> 0.18.0"},
+      {:gen_stage, "~> 0.12.2"},
     ]
   end
 end
