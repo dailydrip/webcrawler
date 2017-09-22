@@ -25,9 +25,10 @@ defmodule Webcrawler do
 
   def get_and_transform(uri_string, transformations) when is_binary(uri_string) do
     response = get(uri_string)
-    for {key, transformation} <- transformations, into: %{} do
+    transformed = for {key, transformation} <- transformations, into: %{} do
       {key, transformation.(response)}
     end
+    {response, transformed}
   end
   def get_and_transform(uri_strings, transformations) when is_list(uri_strings) do
     for uri_string <- uri_strings do

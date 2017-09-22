@@ -25,7 +25,7 @@ defmodule WebcrawlerTest do
           r.body |> String.length
         end
       }
-    assert %{length: index_length} == Webcrawler.get_and_transform("http://example.com/index.html", transformations)
+    assert {_, %{length: ^index_length}} = Webcrawler.get_and_transform("http://example.com/index.html", transformations)
   end
 
   test "finds links to crawl" do
@@ -35,9 +35,12 @@ defmodule WebcrawlerTest do
   end
 
   test "transforms a list of URLs" do
+    url = "http://www.example.com/index.html"
+
     urls = [
-      "http://www.example.com/index.html"
+      url
     ]
+
     example_index = fixture("example.com/index.html")
     index_length = String.length(example_index)
     transformations =
@@ -47,7 +50,7 @@ defmodule WebcrawlerTest do
         end
       }
 
-    assert [{Enum.at(urls, 0), %{length: index_length}}] == Webcrawler.get_and_transform(urls, transformations)
+    assert [{^url, {_, %{length: ^index_length}}}] = Webcrawler.get_and_transform(urls, transformations)
   end
 
   def fixture(path) do
