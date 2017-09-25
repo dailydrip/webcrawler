@@ -11,4 +11,10 @@ defmodule Webcrawler.ResultsTest do
     Results.set(:foo, :bar)
     assert %{foo: :bar} = Results.list()
   end
+
+  test "find out if a key was set within a specific time" do
+    refute Results.set_within_timeout?(:foo123)
+    Results.set(:foo123, :bar)
+    assert Results.set_within_timeout?(:foo123)
+  end
 end

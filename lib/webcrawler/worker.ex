@@ -21,12 +21,16 @@ defmodule Webcrawler.Worker do
       }
 
     # Run the transformations
-    results = Webcrawler.get_and_transform(events, transformations)
-    for {url, {response, transformed}} <- results do
-      Results.set(url, transformed)
-      # Add new URLs to the queue
-      for link <- response.links do
-        Queue.push(link)
+    for url <- events do
+      unless Results.set_within_timeout?(url) do
+        {response, transformed} = Webcrawler.get_and_transform(url, transformations)
+        Results.set(url, transformed)
+        # Add new URLs to the queue
+        for link <- response.links do
+          unless Results.set_within_timeout?(link) do
+            Queue.push(link)
+          end
+        end
       end
     end
 
